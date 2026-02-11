@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Take a Quiz!</title>
+
+<!--
+=========================================
+Developed by Yashhh 🚀
+Machine Learning Quiz Portal
+=========================================
+-->
+
+<style>
+:root{--b:#0f172a;--c:#1e293b;--t:#f1f5f9;--a:#3b82f6;--g:#22c55e;--r:#ef4444}
+body.l{--b:#f3f4f6;--c:#fff;--t:#111827;--a:#2563eb}
+body{margin:0;font-family:Segoe UI,sans-serif;background:var(--b);color:var(--t);transition:.3s}
+.container{max-width:900px;margin:40px auto;padding:20px}
+.card{background:var(--c);padding:25px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.2);margin-bottom:20px;transition:.3s}
+h1{text-align:center}
+.q{font-size:18px;margin-bottom:15px}
+.o{display:block;margin:8px 0;padding:12px;border-radius:12px;background:rgba(255,255,255,.05);cursor:pointer;transition:.2s}
+.o:hover{background:var(--a);color:#fff;transform:scale(1.02)}
+button{margin-top:15px;padding:12px 20px;border:none;border-radius:12px;cursor:pointer;background:var(--a);color:#fff;font-size:16px;transition:.2s}
+button:hover{transform:scale(1.05)}
+button:active{transform:scale(.95)}
+.toggle{position:fixed;top:20px;right:20px}
+.correct{color:var(--g)}
+.wrong{color:var(--r)}
+</style>
+</head>
+<body oncontextmenu="return false">
+
+<button class="toggle" onclick="document.body.classList.toggle('l')">Toggle Theme</button>
+
+<div class="container">
+<h1>Machine Learning Basics – Take a Quiz!</h1>
+<div id="x"></div>
+<button onclick="s()">Submit Quiz</button>
+<div id="y"></div>
+</div>
+
+<script>
+console.log("%cDeveloped by Yashhh 🚀","color:#3b82f6;font-size:16px");
+
+const d=[["What is Machine Learning primarily about?",["Programming fixed rules","Training algorithms to identify patterns","Building robots","Creating hardware"],1,"ML trains algorithms to identify patterns."],
+["Supervised learning requires:",["Unlabeled data","Labeled data","No data","Random guessing"],1,"Supervised learning uses labeled data."],
+["Unsupervised learning aims to:",["Predict scores","Discover patterns","Label spam","Forecast prices"],1,"It finds hidden patterns."],
+["Classification predicts:",["Continuous numbers","Categories","Random values","Hardware states"],1,"Classification outputs categories."],
+["Regression predicts:",["Labels","Colors","Continuous values","Text only"],2,"Regression outputs continuous numbers."],
+["House price prediction is:",["Classification","Regression","Clustering","Random"],1,"Prices are continuous values."],
+["Spam detection is:",["Regression","Classification","Clustering","Forecasting"],1,"Spam detection is classification."],
+["In supervised learning each example includes:",["Input only","Output only","Input and output","Nothing"],2,"It requires input and correct output."],
+["Discrete output example:",["78.4","Spam","82.9","Temperature"],1,"Spam is a discrete category."],
+["Continuous output example:",["Yes/No","Cat/Dog","28.4°C","Disease/No Disease"],2,"Temperature is continuous."],
+["Classification belongs to:",["Supervised","Unsupervised","Hardware","Networking"],0,"Classification is supervised."],
+["Regression answers:",["Which group?","How much?","Yes/No?","What category?"],1,"Regression predicts numerical values."],
+["ML 'learning' means:",["Consciousness","Memorization","Improving prediction accuracy","Reading"],2,"Learning means improving accuracy."],
+["ML pipeline includes:",["Data collection","Training","Deployment","Manual hardcoding"],3,"Hardcoding defeats ML."],
+["Both classification and regression:",["Use unlabeled data","Are supervised","Require no data","Only robotics"],1,"Both are supervised learning tasks."]
+];
+
+let q=document.getElementById("x");
+d.forEach((e,i)=>{
+let c=document.createElement("div");
+c.className="card";
+c.innerHTML=`<div class="q">${i+1}. ${e[0]}</div>`+
+e[1].map((o,j)=>`<label class="o"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join("");
+q.appendChild(c);
+});
+
+function s(){
+let sc=0,r="<div class='card'><h2>Results</h2>";
+d.forEach((e,i)=>{
+let sel=document.querySelector(`input[name=q${i}]:checked`);
+if(sel&&+sel.value===e[2]){sc++;r+=`<p class='correct'>Q${i+1}: Correct</p>`}
+else if(sel){r+=`<p class='wrong'>Q${i+1}: Wrong<br>Your Answer: ${e[1][sel.value]}<br>Correct: ${e[1][e[2]]}<br>${e[3]}</p>`}
+else{r+=`<p class='wrong'>Q${i+1}: Not Answered<br>Correct: ${e[1][e[2]]}</p>`}
+});
+r+=`<h3>Your Score: ${sc}/${d.length}</h3></div>`;
+document.getElementById("y").innerHTML=r;
+window.scrollTo(0,document.body.scrollHeight);
+}
+
+// basic devtools detection
+setInterval(function(){
+if(window.outerWidth-window.innerWidth>160||window.outerHeight-window.innerHeight>160){
+document.body.innerHTML="<h1 style='text-align:center;margin-top:20%'>Developer Tools Detected</h1>";
+}
+},1000);
+</script>
+
+</body>
+</html>
